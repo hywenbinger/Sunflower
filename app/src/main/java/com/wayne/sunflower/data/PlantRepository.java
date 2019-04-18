@@ -9,15 +9,15 @@ public class PlantRepository {
     private static PlantRepository instance;
     private PlantDao mPlantDao;
 
-    private PlantRepository(PlantDao gardenPlantingDao) {
-        this.mPlantDao = gardenPlantingDao;
+    private PlantRepository(PlantDao plantDao) {
+        this.mPlantDao = plantDao;
     }
 
-    public static PlantRepository getInstance(PlantDao gardenPlantingDao) {
+    public static PlantRepository getInstance(PlantDao plantDao) {
         if (instance == null) {
             synchronized (PlantRepository.class) {
                 if (instance == null) {
-                    instance = new PlantRepository(gardenPlantingDao);
+                    instance = new PlantRepository(plantDao);
                 }
             }
         }

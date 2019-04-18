@@ -3,14 +3,12 @@ package com.wayne.sunflower.fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
-import android.support.v4.util.Preconditions;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +20,10 @@ import com.wayne.sunflower.R;
 import com.wayne.sunflower.SunflowerDatabase;
 import com.wayne.sunflower.data.Plant;
 import com.wayne.sunflower.data.PlantRepository;
+import com.wayne.sunflower.data.PlantingRepository;
 import com.wayne.sunflower.databinding.FragmentPlantDetailBinding;
 import com.wayne.sunflower.detail.PlantDetailViewModel;
 import com.wayne.sunflower.detail.PlantDetailViewModelFactory;
-import com.wayne.sunflower.list.PlantListViewModelFactory;
-import com.wayne.sunflower.utils.LogUtils;
 
 /**
  * 植物详情
@@ -35,7 +32,8 @@ public class PlantDetailFragment extends Fragment {
 
     private FragmentPlantDetailBinding mBinding;
     private PlantDetailViewModel mViewModel;
-    private PlantRepository mRepository;
+    private PlantRepository mPlantRepository;
+    private PlantingRepository mPlantingRepository;
     private PlantDetailViewModelFactory mFactory;
     private String mShareText;
 
@@ -47,7 +45,8 @@ public class PlantDetailFragment extends Fragment {
         mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "11111111", Snackbar.LENGTH_LONG).show();
+                mViewModel.addPlantToGarden();
+                Snackbar.make(v, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show();
             }
         });
         return mBinding.getRoot();
@@ -58,8 +57,10 @@ public class PlantDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         String plantId = bundle.getString("plantId");
-        mRepository = PlantRepository.getInstance(SunflowerDatabase.getInstance(getContext().getApplicationContext()).getPlantDao());
-        mFactory = new PlantDetailViewModelFactory(mRepository, plantId);
+        final SunflowerDatabase database = SunflowerDatabase.getInstance(getContext().getApplicationContext());
+        mPlantRepository = PlantRepository.getInstance(database.getPlantDao());
+        mPlantingRepository = PlantingRepository.getInstance(database.getPlantingDao());
+        mFactory = new PlantDetailViewModelFactory(mPlantRepository, mPlantingRepository, plantId);
         mViewModel = ViewModelProviders.of(this,mFactory).get(PlantDetailViewModel.class);
         mBinding.setViewModel(mViewModel);
         mBinding.setLifecycleOwner(this);//observing changes of LiveData in this binding

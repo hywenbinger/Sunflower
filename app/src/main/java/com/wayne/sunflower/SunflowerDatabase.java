@@ -4,11 +4,15 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.wayne.sunflower.data.Converters;
 import com.wayne.sunflower.data.Plant;
 import com.wayne.sunflower.data.PlantDao;
+import com.wayne.sunflower.data.Planting;
+import com.wayne.sunflower.data.PlantingDao;
 import com.wayne.sunflower.utils.Constants;
 import com.wayne.sunflower.utils.LogUtils;
 import com.wayne.sunflower.worker.PlantDatabaseWorker;
@@ -16,10 +20,13 @@ import com.wayne.sunflower.worker.PlantDatabaseWorker;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-@Database(entities = {Plant.class}, version = 2)
+@Database(entities = {Plant.class, Planting.class}, version = 1)
+@TypeConverters(Converters.class)
 public abstract class SunflowerDatabase extends RoomDatabase {
 
     public abstract PlantDao getPlantDao();
+
+    public abstract PlantingDao getPlantingDao();
 
     private static volatile SunflowerDatabase instance;
 
