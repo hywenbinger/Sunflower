@@ -16,6 +16,7 @@ import com.wayne.sunflower.list.PlantListAdapter;
 import com.wayne.sunflower.list.PlantListViewModel;
 import com.wayne.sunflower.list.PlantListViewModelFactory;
 import com.wayne.sunflower.data.PlantRepository;
+import com.wayne.sunflower.utils.InjectorUtils;
 import com.wayne.sunflower.utils.LogUtils;
 
 import java.util.List;
@@ -28,8 +29,6 @@ public class PlantListFragment extends Fragment {
     private FragmentPlantListBinding mBinding;
     private PlantListAdapter mAdapter;
     private PlantListViewModel mViewModel;
-    private PlantListViewModelFactory mFactory;
-    private PlantRepository mRepository;
 
     @Nullable
     @Override
@@ -43,9 +42,8 @@ public class PlantListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRepository = PlantRepository.getInstance(SunflowerDatabase.getInstance(getContext().getApplicationContext()).getPlantDao());
-        mFactory = new PlantListViewModelFactory(mRepository);
-        mViewModel = ViewModelProviders.of(this, mFactory).get(PlantListViewModel.class);
+        PlantListViewModelFactory factory = InjectorUtils.providerPlantListViewModelFactory(getContext());
+        mViewModel = ViewModelProviders.of(this, factory).get(PlantListViewModel.class);
         mViewModel.getPlantList().observe(this, new Observer<List<Plant>>() {
             @Override
             public void onChanged(@Nullable List<Plant> plantList) {

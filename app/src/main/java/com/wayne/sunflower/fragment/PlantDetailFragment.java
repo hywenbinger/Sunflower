@@ -24,6 +24,7 @@ import com.wayne.sunflower.data.PlantingRepository;
 import com.wayne.sunflower.databinding.FragmentPlantDetailBinding;
 import com.wayne.sunflower.detail.PlantDetailViewModel;
 import com.wayne.sunflower.detail.PlantDetailViewModelFactory;
+import com.wayne.sunflower.utils.InjectorUtils;
 
 /**
  * 植物详情
@@ -32,9 +33,6 @@ public class PlantDetailFragment extends Fragment {
 
     private FragmentPlantDetailBinding mBinding;
     private PlantDetailViewModel mViewModel;
-    private PlantRepository mPlantRepository;
-    private PlantingRepository mPlantingRepository;
-    private PlantDetailViewModelFactory mFactory;
     private String mShareText;
 
     @Nullable
@@ -56,12 +54,9 @@ public class PlantDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-        String plantId = bundle.getString("plantId");
-        final SunflowerDatabase database = SunflowerDatabase.getInstance(getContext().getApplicationContext());
-        mPlantRepository = PlantRepository.getInstance(database.getPlantDao());
-        mPlantingRepository = PlantingRepository.getInstance(database.getPlantingDao());
-        mFactory = new PlantDetailViewModelFactory(mPlantRepository, mPlantingRepository, plantId);
-        mViewModel = ViewModelProviders.of(this,mFactory).get(PlantDetailViewModel.class);
+        final String plantId = bundle.getString("plantId");
+        final PlantDetailViewModelFactory factory = InjectorUtils.providerPlantDetailViewModelFactory(getContext(), plantId);
+        mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
         mBinding.setViewModel(mViewModel);
         mBinding.setLifecycleOwner(this);//observing changes of LiveData in this binding
         mViewModel.getPlant().observe(this, new Observer<Plant>() {
