@@ -61,10 +61,11 @@ public class PlantDetailFragment extends Fragment {
         mRepository = PlantRepository.getInstance(SunflowerDatabase.getInstance(getContext().getApplicationContext()).getPlantDao());
         mFactory = new PlantDetailViewModelFactory(mRepository, plantId);
         mViewModel = ViewModelProviders.of(this,mFactory).get(PlantDetailViewModel.class);
+        mBinding.setViewModel(mViewModel);
+        mBinding.setLifecycleOwner(this);//observing changes of LiveData in this binding
         mViewModel.getPlant().observe(this, new Observer<Plant>() {
             @Override
             public void onChanged(@Nullable Plant plant) {
-                mBinding.setPlant(plant);
                 mShareText = getString(R.string.share_text_plant, plant.getName());
             }
         });

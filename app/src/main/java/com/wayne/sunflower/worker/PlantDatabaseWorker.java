@@ -37,7 +37,6 @@ public class PlantDatabaseWorker extends Worker {
             JsonReader reader = new JsonReader(new InputStreamReader(input));
             Type plantType = new TypeToken<List<Plant>>(){}.getType();
             List<Plant> plants = new Gson().fromJson(reader, plantType);
-            LogUtils.i("plant size is "+plants.size());
             insertDB(plants);
             return Result.success();
         } catch (IOException e) {
@@ -47,7 +46,6 @@ public class PlantDatabaseWorker extends Worker {
     }
 
     private void insertDB(List<Plant> plants){
-        LogUtils.i("insertPlants plants to db");
         SunflowerDatabase database = SunflowerDatabase.getInstance(getApplicationContext());
         database.getPlantDao().insertPlants(plants);
     }

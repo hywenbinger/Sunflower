@@ -34,7 +34,6 @@ public class PlantListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtils.i("onCreateView");
         mBinding = FragmentPlantListBinding.inflate(inflater, container, false);
         mAdapter = new PlantListAdapter();
         mBinding.plantListView.setAdapter(mAdapter);
@@ -44,14 +43,12 @@ public class PlantListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtils.i("onViewCreated");
         mRepository = PlantRepository.getInstance(SunflowerDatabase.getInstance(getContext().getApplicationContext()).getPlantDao());
         mFactory = new PlantListViewModelFactory(mRepository);
         mViewModel = ViewModelProviders.of(this, mFactory).get(PlantListViewModel.class);
         mViewModel.getPlantList().observe(this, new Observer<List<Plant>>() {
             @Override
             public void onChanged(@Nullable List<Plant> plantList) {
-                LogUtils.i("db data changed");
                 mAdapter.submitList(plantList);
             }
         });

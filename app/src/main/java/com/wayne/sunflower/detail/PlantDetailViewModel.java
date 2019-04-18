@@ -12,6 +12,7 @@ public class PlantDetailViewModel extends ViewModel {
     private PlantRepository mPlantRepository;
 
     private LiveData<Plant> mPlant;
+    private LiveData<Boolean> mIsPlanted;
 
     public PlantDetailViewModel(PlantRepository plantRepository, String plantId) {
         mPlantRepository = plantRepository;
@@ -20,6 +21,10 @@ public class PlantDetailViewModel extends ViewModel {
 
     public LiveData<Plant> getPlant(){
         return mPlant;
+    }
+
+    public LiveData<Boolean> isPlanted(){
+        return mIsPlanted;
     }
 
 }
