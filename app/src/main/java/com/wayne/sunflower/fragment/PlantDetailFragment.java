@@ -24,6 +24,7 @@ import com.wayne.sunflower.data.PlantingRepository;
 import com.wayne.sunflower.databinding.FragmentPlantDetailBinding;
 import com.wayne.sunflower.detail.PlantDetailViewModel;
 import com.wayne.sunflower.detail.PlantDetailViewModelFactory;
+import com.wayne.sunflower.utils.Constants;
 import com.wayne.sunflower.utils.InjectorUtils;
 
 /**
@@ -53,9 +54,8 @@ public class PlantDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle bundle = getArguments();
-        final String plantId = bundle.getString("plantId");
-        final PlantDetailViewModelFactory factory = InjectorUtils.providerPlantDetailViewModelFactory(getContext(), plantId);
+        final PlantDetailViewModelFactory factory = InjectorUtils.providerPlantDetailViewModelFactory(getContext(),
+                getArguments().getString(Constants.ACTION_KEY));
         mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
         mBinding.setViewModel(mViewModel);
         mBinding.setLifecycleOwner(this);//observing changes of LiveData in this binding

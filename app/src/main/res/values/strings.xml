@@ -25,4 +25,5 @@
     <string name="share_text_plant">在Sunflower上看看%s</string>
 
     <string name="added_plant_to_garden">添加了新植物</string>
+    <string name="garden_empty">花园里还没有植物</string>
 </resources>

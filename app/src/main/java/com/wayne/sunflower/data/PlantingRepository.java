@@ -29,15 +29,19 @@ public class PlantingRepository {
     }
 
     public LiveData<Planting> getPlanting(long plantingId){
-        return mPlantingDao.getGardenPlanting(plantingId);
+        return mPlantingDao.getPlanting(plantingId);
     }
 
     public LiveData<Planting> getPlanting(String plantId){
-        return mPlantingDao.getGardenPlanting(plantId);
+        return mPlantingDao.getPlanting(plantId);
     }
 
     public LiveData<List<Planting>> getPlantings(){
         return mPlantingDao.getPlantings();
+    }
+
+    public LiveData<List<PlantAndPlanting>> getPlantAndPlantings(){
+        return mPlantingDao.getPlantAndPlantings();
     }
 
 }

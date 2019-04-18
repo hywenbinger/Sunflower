@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +31,13 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("isGone")
-    public static void bindIsGone(FloatingActionButton view, boolean isGone) {
-        if (isGone) {
+    public static void bindIsGone(View view, boolean isGone) {
+        view.setVisibility(isGone ? View.GONE : View.VISIBLE);
+    }
+
+    @BindingAdapter("isHide")
+    public static void bindIsHide(FloatingActionButton view, boolean isHide) {
+        if (isHide) {
             view.hide();
         } else {
             view.show();

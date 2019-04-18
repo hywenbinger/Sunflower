@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.wayne.sunflower.R;
 import com.wayne.sunflower.data.Plant;
 import com.wayne.sunflower.databinding.ListPlantItemBinding;
+import com.wayne.sunflower.utils.Constants;
 import com.wayne.sunflower.utils.LogUtils;
 
 import androidx.navigation.Navigation;
@@ -52,7 +53,7 @@ public class PlantListAdapter extends ListAdapter<Plant, PlantListAdapter.ViewHo
         @Override
         public void onClick(View v) {
             Bundle bundle = new Bundle();
-            bundle.putString("plantId", plantId);
+            bundle.putString(Constants.ACTION_KEY, plantId);
             Navigation.findNavController(v).navigate(R.id.action_plant_list_fragment_to_plant_detail_fragment, bundle);
         }
     }
