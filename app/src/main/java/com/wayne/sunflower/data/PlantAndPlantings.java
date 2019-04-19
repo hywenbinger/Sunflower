@@ -6,7 +6,7 @@ import android.arch.persistence.room.Relation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlantAndPlanting {
+public class PlantAndPlantings {
 
     @Embedded
     private Plant plant;
@@ -15,7 +15,7 @@ public class PlantAndPlanting {
     private List<Planting> plantings;
 
 
-    public PlantAndPlanting() {
+    public PlantAndPlantings() {
         this.plantings = new ArrayList<>();
     }
 

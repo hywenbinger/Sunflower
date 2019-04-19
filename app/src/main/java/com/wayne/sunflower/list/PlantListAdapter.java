@@ -38,6 +38,7 @@ public class PlantListAdapter extends ListAdapter<Plant, PlantListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final Plant plant = getItem(i);
+        viewHolder.itemView.setTag(plant);
         final ItemClickListener itemClickListener = new ItemClickListener(plant.getPlantId());
         viewHolder.bind(plant, itemClickListener);
     }

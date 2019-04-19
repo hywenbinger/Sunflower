@@ -40,7 +40,7 @@ public class PlantingRepository {
         return mPlantingDao.getPlantings();
     }
 
-    public LiveData<List<PlantAndPlanting>> getPlantAndPlantings(){
+    public LiveData<List<PlantAndPlantings>> getPlantAndPlantings(){
         return mPlantingDao.getPlantAndPlantings();
     }
 

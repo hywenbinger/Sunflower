@@ -6,7 +6,7 @@ import com.wayne.sunflower.SunflowerDatabase;
 import com.wayne.sunflower.data.PlantRepository;
 import com.wayne.sunflower.data.PlantingRepository;
 import com.wayne.sunflower.detail.PlantDetailViewModelFactory;
-import com.wayne.sunflower.garden.GardenPlantingViewModelFactory;
+import com.wayne.sunflower.garden.PlantingListViewModelFactory;
 import com.wayne.sunflower.list.PlantListViewModelFactory;
 
 public class InjectorUtils {
@@ -27,8 +27,8 @@ public class InjectorUtils {
         return new PlantDetailViewModelFactory(getPlantRepository(context), getPlantingRepository(context), plantId);
     }
 
-    public static GardenPlantingViewModelFactory providerGardenPlantingViewModelFactory(Context context){
-        return new GardenPlantingViewModelFactory(getPlantingRepository(context));
+    public static PlantingListViewModelFactory providerGardenPlantingViewModelFactory(Context context){
+        return new PlantingListViewModelFactory(getPlantingRepository(context));
     }
 
 }

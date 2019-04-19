@@ -27,7 +27,7 @@ public interface PlantingDao {
      */
     @Transaction
     @Query("SELECT * FROM plants")
-    LiveData<List<PlantAndPlanting>> getPlantAndPlantings();
+    LiveData<List<PlantAndPlantings>> getPlantAndPlantings();
 
     @Insert
     long insert(@NonNull Planting planting);

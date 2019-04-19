@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.wayne.sunflower.data.PlantingRepository;
 
-public class GardenPlantingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class PlantingListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private PlantingRepository mPlantingRepository;
 
-    public GardenPlantingViewModelFactory(PlantingRepository plantingRepository) {
+    public PlantingListViewModelFactory(PlantingRepository plantingRepository) {
         super();
         mPlantingRepository = plantingRepository;
     }
@@ -18,6 +18,6 @@ public class GardenPlantingViewModelFactory extends ViewModelProvider.NewInstanc
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new GardenPlantingViewModel(mPlantingRepository);
+        return (T) new PlantingListViewModel(mPlantingRepository);
     }
 }
