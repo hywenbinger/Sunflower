@@ -5,6 +5,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.Objects;
 
 @Entity(tableName = "plants")
 public class Plant {
@@ -78,4 +81,21 @@ public class Plant {
                 ", wateringInterval=" + wateringInterval +
                 '}';
     }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return obj instanceof Plant
+                && this.plantId.equals(((Plant) obj).plantId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plantId);
+    }
+
+    @Override
+    protected Object clone() {
+        return new Plant(plantId, name, description, growZoneNumber, wateringInterval, imageUrl);
+    }
+
 }

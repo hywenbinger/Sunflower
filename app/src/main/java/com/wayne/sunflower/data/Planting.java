@@ -5,8 +5,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.Nullable;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 @Entity(tableName = "plantings",
         foreignKeys = {@ForeignKey(entity = Plant.class, parentColumns = {"id"}, childColumns = {"plant_id"})},
@@ -51,4 +53,40 @@ public class Planting {
     public void setPlantingId(long plantingId) {
         this.plantingId = plantingId;
     }
+
+    @Override
+    public String toString() {
+        return "Planting{" +
+                "plantingId=" + plantingId +
+                ", plantId='" + plantId + '\'' +
+                ", plantDate=" + plantDate +
+                ", lastWateringDate=" + lastWateringDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Planting target = (Planting) obj;
+
+        return this.plantId.equals(target.plantId)
+                && this.plantDate.equals(this.plantDate)
+                && this.lastWateringDate.equals(this.lastWateringDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plantingId);
+    }
+
+    @Override
+    protected Object clone() {
+        return new Planting(plantId, plantDate, lastWateringDate);
+    }
+
 }
